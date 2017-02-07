@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+get('/', 'StaticPagesController@home')->name('home');
+
+get('login', 'SessionController@create')->name('login');
+post('login', 'SessionController@store')->name('login');
+delete('logout', 'SessionController@destroy')->name('logout');
