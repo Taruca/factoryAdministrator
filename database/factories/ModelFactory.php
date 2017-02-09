@@ -19,3 +19,17 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Models\Contact::class, function (Faker\Generator $faker) {
+    $datetime = $faker->date . ' ' . $faker->time;
+    $name = $faker->name;
+    $firstLetter = getFirstLetterOfName($name);
+
+    return [
+        'name' => $name,
+        'mobile' => $faker->phoneNumber,
+        'created_at' => $datetime,
+        'updated_at' => $datetime,
+        'first_letter' => $firstLetter,
+    ];
+});

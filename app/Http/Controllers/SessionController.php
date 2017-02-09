@@ -34,7 +34,7 @@ class SessionController extends Controller
 
          if (Auth::attempt($credentials)) {
             session()->flash('success', '登录成功');
-            return redirect()->route('home', [Auth::user()]);
+            return redirect()->route('home');
         } else {
             session()->flash('danger', '登录失败，请检查你的邮箱、密码');
             return redirect()->back();
