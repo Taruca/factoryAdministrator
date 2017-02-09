@@ -33,3 +33,15 @@ $factory->define(App\Models\Contact::class, function (Faker\Generator $faker) {
         'first_letter' => $firstLetter,
     ];
 });
+
+$factory->define(App\Models\Product::class, function (Faker\Generator $faker) {
+    $datetime = $faker->date . ' ' . $faker->time;
+    $name = $faker->name;
+
+    return [
+        'name' => $name,
+        'price' => $faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = 1000),
+        'created_at' => $datetime,
+        'updated_at' => $datetime,
+    ];
+});

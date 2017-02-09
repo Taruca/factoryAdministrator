@@ -16,6 +16,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ route('contacts.index') }}">联系人管理</a></li>
+                    <li><a href="{{ route('products.index') }}">商品管理</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         @endif

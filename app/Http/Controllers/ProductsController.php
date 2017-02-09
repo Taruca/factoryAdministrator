@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\App;
 
-class ContactsController extends Controller
+class ProductsController extends Controller
 {
     public function __construct()
     {
@@ -23,8 +22,8 @@ class ContactsController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::paginate(10);
-        return view('static_pages.contacts.index', compact('contacts'));
+        $products = Product::paginate(15);
+        return view('static_pages.products.index', compact('products'));
     }
 
     /**
@@ -34,7 +33,7 @@ class ContactsController extends Controller
      */
     public function create()
     {
-        return view('static_pages.contacts.create');
+        return view('static_pages.products.create');
     }
 
     /**
@@ -46,24 +45,23 @@ class ContactsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:10',
-            'mobile' => 'required|max:20',
+            'name' => 'required|max:50',
+            'price' => 'required|numeric',
         ], [
-            'name.required' => '必须填写姓名',
-            'name.max' => '姓名长度必须小于十字符',
-            'mobile.required' => '必须填写联系方式',
-            'mobile.max' => '联系方式长度必须小于二十字符'
+            'name.required' => '必须填写商品名',
+            'name.max' => '商品名长度必须小于五十字符',
+            'price.required' => '必须填写价格',
+            'price.numeric' => '价格必须是数字',
         ]);
 
-        Contact::create([
+        Product::create([
             'name' => $request->name,
-            'mobile' => $request->mobile,
-            'first_letter' => getFirstLetterOfName($request->name),
+            'price' => $request->price,
         ]);
 
-        session()->flash('success', '新建联系人成功');
+        session()->flash('success', '添加商品成功');
 
-        return redirect()->route('contacts.index');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -85,8 +83,8 @@ class ContactsController extends Controller
      */
     public function edit($id)
     {
-        $contact = Contact::findOrFail($id);
-        return view('static_pages.contacts.edit', compact('contact'));
+        $product = Product::findOrFail($id);
+        return view('static_pages.products.edit', compact('product'));
     }
 
     /**
@@ -99,24 +97,23 @@ class ContactsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|max:10',
-            'mobile' => 'required|max:20',
+            'name' => 'required|max:50',
+            'price' => 'required|numeric',
         ], [
-            'name.required' => '必须填写姓名',
-            'name.max' => '姓名长度必须小于十字符',
-            'mobile.required' => '必须填写联系方式',
-            'mobile.max' => '联系方式长度必须小于二十字符'
+            'name.required' => '必须填写商品名',
+            'name.max' => '商品名长度必须小于五十字符',
+            'price.required' => '必须填写价格',
+            'price.numeric' => '价格必须是数字',
         ]);
-        $contact = Contact::findOrFail($id);
-        $contact->update([
+
+        $product = Product::findOrFail($id);
+        $product->update([
             'name' => $request->name,
-            'mobile' => $request->mobile,
-            'first_letter' => getFirstLetterOfName($request->name)
+            'price' => $request->price
         ]);
 
-        session()->flash('success', '编辑联系人成功');
-
-        return redirect()->route('contacts.index');
+        session()->flash('success', '编辑商品成功');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -127,8 +124,8 @@ class ContactsController extends Controller
      */
     public function destroy($id)
     {
-        Contact::destroy($id);
-        session()->flash('success', '成功删除联系人');
+        Product::destroy($id);
+        session()->flash('success', '删除商品成功');
         return back();
     }
 }

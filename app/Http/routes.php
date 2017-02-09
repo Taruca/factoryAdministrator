@@ -21,13 +21,26 @@ delete('logout', 'SessionController@destroy')->name('logout');
 
 //contact page
 resource('contacts', 'ContactsController', [
-        'except' => ['destroy'],
+        'except' => ['show', 'destroy'],
         'names' => [
             'index' => 'contacts.index',
             'create' => 'contacts.create',
             'store' => 'contacts.store',
-            'show' => 'contacts.show',
+            'edit' => 'contacts.edit',
             'update' => 'contacts.update',
         ]
 ]);
 get('contacts/destroy/{id}', 'ContactsController@destroy')->name('contacts.destroy');
+
+//product page
+resource('products', 'ProductsController', [
+    'except' => ['show', 'destroy'],
+    'names' => [
+        'index' => 'products.index',
+        'create' => 'products.create',
+        'store' => 'products.store',
+        'edit' => 'products.edit',
+        'update' => 'products.update',
+    ]
+]);
+get('products/destroy/{id}', 'ProductsController@destroy')->name('products.destroy');

@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ route('contacts.index') }}">联系人管理</a>
+            <a class="navbar-brand" href="{{ route('products.index') }}">商品管理</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -22,7 +22,7 @@
                 <button type="submit" class="btn btn-default">确认</button>
             </form>--}}
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ route('contacts.create') }}">新建联系人</a></li>
+                <li><a href="{{ route('products.create') }}">添加商品</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
@@ -30,26 +30,24 @@
         <thead>
         <tr>
             <th>编号</th>
-            <th>姓名</th>
-            <th>联系方式</th>
-            <th>欠款情况</th>
+            <th>商品名</th>
+            <th>单价(元)</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($contacts as $contact)
+        @foreach($products as $product)
             <tr>
-                <th>{{ $contact->id }}</th>
-                <th>{{ $contact->name }}</th>
-                <th>{{ $contact->mobile }}</th>
-                <th>0</th>
+                <th>{{ $product->id }}</th>
+                <th>{{ $product->name }}</th>
+                <th>{{ $product->price }}</th>
                 <th>
-                    <a href="{{ route('contacts.destroy', $contact->id) }}">删除</a> |
-                    <a href="{{ route('contacts.edit', $contact->id) }}">编辑</a>
+                    <a href="{{ route('products.destroy', $product->id) }}">删除</a> |
+                    <a href="{{ route('products.edit', $product->id) }}">编辑</a>
                 </th>
             </tr>
         @endforeach
         </tbody>
     </table>
-    {!! $contacts->render() !!}
+    {!! $products->render() !!}
 @stop
